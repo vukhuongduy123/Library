@@ -1,7 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class SearchPanel {
     private final JTextField textField;
@@ -19,6 +18,10 @@ public class SearchPanel {
 
     public void addToListView(Object obj, int index) {
         defaultListModel.add(index, obj);
+    }
+
+    public JList getListView() {
+        return listView;
     }
 
     public JTextField getTextField() {

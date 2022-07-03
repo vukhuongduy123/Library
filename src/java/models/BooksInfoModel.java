@@ -11,7 +11,20 @@ public class BooksInfoModel {
     private String translator;
     private Date published;
     private Date addedTime;
-    private Integer bookContentId;
+
+    public BooksInfoModel() {}
+
+    public BooksInfoModel(Integer id, String name, String authour, String descr, String categories, String translator, Date published, Date addedTime) {
+        this.id = id;
+        this.name = name;
+        this.authour = authour;
+        this.descr = descr;
+        this.categories = categories;
+        this.translator = translator;
+        this.published = published;
+        this.addedTime = addedTime;
+    }
+
 
     public Integer getId() {
         return id;
@@ -77,26 +90,8 @@ public class BooksInfoModel {
         this.addedTime = addedTime;
     }
 
-    public Integer getBookContentId() {
-        return bookContentId;
-    }
-
-    public void setBookContentId(Integer bookContentId) {
-        this.bookContentId = bookContentId;
-    }
-
     @Override
     public String toString() {
-        return "BooksInfoModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", authour='" + authour + '\'' +
-                ", descr='" + descr + '\'' +
-                ", categories='" + categories + '\'' +
-                ", translator='" + translator + '\'' +
-                ", published=" + published +
-                ", addedTime=" + addedTime +
-                ", bookContentId=" + bookContentId +
-                '}';
+        return name;
     }
 }
