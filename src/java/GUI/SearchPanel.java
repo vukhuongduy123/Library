@@ -9,7 +9,7 @@ public class SearchPanel {
     private final JScrollPane scrollPane;
 
     public SearchPanel() {
-        textField = new JTextField(10);
+        textField = new JTextField();
         defaultListModel = new DefaultListModel();
 
         listView = new JList(defaultListModel);
