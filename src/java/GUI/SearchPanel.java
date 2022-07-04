@@ -9,16 +9,13 @@ public class SearchPanel {
     private final JScrollPane scrollPane;
 
     public SearchPanel() {
-        textField = new JTextField();
+        textField = new JTextField(10);
         defaultListModel = new DefaultListModel();
 
         listView = new JList(defaultListModel);
         scrollPane = new JScrollPane(listView);
     }
 
-    public void addToListView(Object obj, int index) {
-        defaultListModel.add(index, obj);
-    }
 
     public JList getListView() {
         return listView;
@@ -30,5 +27,10 @@ public class SearchPanel {
 
     public JScrollPane getScrollPane() {
         return scrollPane;
+    }
+
+
+    public DefaultListModel getDefaultListModel() {
+        return defaultListModel;
     }
 }

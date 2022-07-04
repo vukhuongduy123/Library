@@ -1,4 +1,5 @@
 import GUI.*;
+import controller.EventController;
 import database.SQLConnect;
 import models.BooksInfoModel;
 
@@ -15,8 +16,10 @@ public class Library {
 
             MainJFrame mainJFrame = new MainJFrame();
             DateFormat dateFormate = new SimpleDateFormat("yyyy-MM-dd");
-            mainJPanel.getSearchPanel().addToListView(new BooksInfoModel(
-                    1,"string","string","string","string","string", dateFormate.parse("2019-09-07"), dateFormate.parse("2019-09-07")), 0);
+            EventController eventController = new EventController(mainJPanel);
+            eventController.addToListView(new BooksInfoModel(
+                    1,"string","string","string","string","string", dateFormate.parse("2019-09-07"), dateFormate.parse("2019-09-07")));
+            eventController.initControl();
             mainJFrame.addComponent(mainJPanel.getPanel());
 
             mainJFrame.show();

@@ -5,9 +5,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopPanelButtons {
+public class TopButtons {
     public enum ButtonsName {
-        UPDATE, DELETE, INFO, OPEN;
+        UPDATE, DELETE, INFO, OPEN, OPEN_LOCAL;
     }
     private final List<JButton> buttons;
     private final JPanel panel;
@@ -19,12 +19,13 @@ public class TopPanelButtons {
         return button;
     }
 
-    public TopPanelButtons() {
+    public TopButtons() {
         buttons = new ArrayList<>();
         buttons.add(createButton(ButtonsName.UPDATE.toString(), true));
         buttons.add(createButton(ButtonsName.DELETE.toString(), false));
         buttons.add(createButton(ButtonsName.INFO.toString(), false));
         buttons.add(createButton(ButtonsName.OPEN.toString(), false));
+        buttons.add(createButton(ButtonsName.OPEN_LOCAL.toString(), true));
         panel = new JPanel();
 
         FlowLayout flowLayout = new FlowLayout();

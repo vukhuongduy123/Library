@@ -35,7 +35,6 @@ public class IcePdf {
         viewerComponentPanel = new SwingViewBuilder(controller).buildViewerPanel();
         viewerComponentPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
                 BorderFactory.createLoweredBevelBorder()));
-        controller.setPageFitMode(DocumentViewController.PAGE_FIT_NONE, true);
     }
 
     public JPanel getPdfViewerComponent() {
