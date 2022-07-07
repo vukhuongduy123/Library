@@ -2,7 +2,6 @@ package controller;
 
 import GUI.MainJPanel;
 import GUI.TopButtons;
-import com.google.gson.Gson;
 import models.BooksInfoModel;
 import models.MessageModel;
 
@@ -12,24 +11,34 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventController {
     private Socket socket;
     private MainJPanel mainJPanel;
 
-    private void sendMessage(MessageModel messageModel) {
-        Gson gson = new Gson();
-        String res = gson.toJson(messageModel);
-
-        System.out.println(res);
+    private MessageModel sendMessage(MessageModel messageModel) {
+        MessageModel res = null;
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            objectOutputStream.writeObject(messageModel);
+            res = (MessageModel) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     private void initTopButtonsEvent() {
         mainJPanel.getTopPanelButtons().getButtons().forEach(element -> element.addActionListener(e -> {
             BooksInfoModel booksInfoModel = (BooksInfoModel) mainJPanel.getSearchPanel().getListView().getSelectedValue();
             if (element.getName().equals(TopButtons.ButtonsName.DELETE.toString())) {
-                sendMessage(new MessageModel(Message.DELETE_BOOK, new Object[]{booksInfoModel}));
+                sendMessage(new MessageModel(Message.DELETE_BOOK, new Object[]{booksInfoModel.getId()}));
             } else if (element.getName().equals(TopButtons.ButtonsName.UPDATE.toString())) {
                 JFileChooser fc = new JFileChooser();
                 fc.setFileFilter(new FileNameExtensionFilter(null, "pdf"));
@@ -51,8 +60,8 @@ public class EventController {
                 message += "addedTime: " + booksInfoModel.getAddedTime() + "\n";
                 message += "published: " + booksInfoModel.getPublished() + "\n";
                 JOptionPane.showMessageDialog(null, message, "Info message", JOptionPane.INFORMATION_MESSAGE);
-            } else if (element.getName().equals(TopButtons.ButtonsName.INFO.toString())) {
-                sendMessage(new MessageModel(Message.UPDATE_BOOK, new Object[]{booksInfoModel}));
+            } else if (element.getName().equals(TopButtons.ButtonsName.OPEN.toString())) {
+                sendMessage(new MessageModel(Message.OPEN, new Object[]{booksInfoModel}));
             } else if(element.getName().equals(TopButtons.ButtonsName.OPEN_LOCAL.toString())) {
                 JFileChooser fc = new JFileChooser();
                 fc.setFileFilter(new FileNameExtensionFilter(null, "pdf"));
@@ -74,10 +83,18 @@ public class EventController {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER ) {
+                    MessageModel res;
                     if (mainJPanel.getSearchPanel().getTextField().getText() != null)
-                        sendMessage(new MessageModel(Message.FIND_BOOK, new Object[]{mainJPanel.getSearchPanel().getTextField().getText()}));
+                        res = sendMessage(new MessageModel(Message.FIND_BOOK, new Object[]{mainJPanel.getSearchPanel().getTextField().getText()}));
                     else
-                        sendMessage(new MessageModel(Message.GET_ALL_BOOKS, null));
+                        res = sendMessage(new MessageModel(Message.GET_ALL_BOOKS, null));
+
+                    mainJPanel.getSearchPanel().getListView().removeAll();
+                    List<BooksInfoModel> booksInfoModels = new ArrayList<>();
+                    for (int i = 0; i < res.getArgs().length; i++) {
+                        booksInfoModels.add((BooksInfoModel) res.getArgs()[i]);
+                    }
+
                 }
             }
 
@@ -94,6 +111,7 @@ public class EventController {
 
     public void initControl() {
         initTopButtonsEvent();
+        initSearchPanelEvent();
 
     }
 
@@ -109,8 +127,8 @@ public class EventController {
         }
     }
 
-    public void addToListView(Object obj) {
-        mainJPanel.getSearchPanel().getDefaultListModel().add(0, obj);
+    public void addToListView(BooksInfoModel booksInfoModel) {
+        mainJPanel.getSearchPanel().getDefaultListModel().add(0, booksInfoModel);
     }
 
 

@@ -3,12 +3,19 @@ import controller.EventController;
 import database.SQLConnect;
 import models.BooksInfoModel;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Library {
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch(Exception ignored){
+
+        }
+
         SQLConnect.initConnection();
         Connection connection = SQLConnect.getConnection();
         try {

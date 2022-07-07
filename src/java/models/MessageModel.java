@@ -1,8 +1,8 @@
 package models;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class MessageModel {
+public class MessageModel implements Serializable {
     private String message;
     private Object[] args = null;
 
@@ -29,4 +29,5 @@ public class MessageModel {
     public void setArgs(Object[] args) {
         this.args = args;
     }
+
 }

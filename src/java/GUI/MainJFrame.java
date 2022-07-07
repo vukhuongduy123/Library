@@ -14,8 +14,6 @@ public class MainJFrame {
         jFrame.setTitle("Library");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
     }
 
     public void addComponent(Component component) {

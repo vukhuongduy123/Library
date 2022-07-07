@@ -33,7 +33,7 @@ public class MainJPanel {
             gbc.gridx = gridxTopPanelButtons.getAndIncrement();
             gbc.fill = GridBagConstraints.NONE;
             gbc.gridy = 0;
-            gbc.insets = new Insets(0,10,0,10);
+            gbc.insets = new Insets(10,10,10,10);
             gbc.anchor = GridBagConstraints.WEST;
             panel.add(element, gbc);
         });
