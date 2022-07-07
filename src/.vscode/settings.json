@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "e:\\GitRepo\\libs\\commons-net-3.8.0.jar",
+        "e:\\GitRepo\\libs\\commons-net-3.8.0-sources.jar",
+        "e:\\GitRepo\\libs\\commons-net-examples-3.8.0.jar",
+        "e:\\GitRepo\\libs\\gson-2.8.0.jar",
+        "e:\\GitRepo\\libs\\icepdf-core.jar",
+        "e:\\GitRepo\\libs\\icepdf-viewer.jar"
+    ]
+}
