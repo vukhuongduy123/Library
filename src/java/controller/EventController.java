@@ -14,18 +14,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EventController {
     private Socket socket;
-    private MainJPanel mainJPanel;
+    private final MainJPanel mainJPanel;
 
     private MessageModel sendMessage(MessageModel messageModel) {
         MessageModel res = null;
         try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream.writeObject(messageModel);
             res = (MessageModel) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
@@ -83,18 +81,14 @@ public class EventController {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER ) {
-                    MessageModel res;
+                    String arg = "";
                     if (mainJPanel.getSearchPanel().getTextField().getText() != null)
-                        res = sendMessage(new MessageModel(Message.FIND_BOOK, new Object[]{mainJPanel.getSearchPanel().getTextField().getText()}));
-                    else
-                        res = sendMessage(new MessageModel(Message.GET_ALL_BOOKS, null));
-
+                        arg = mainJPanel.getSearchPanel().getTextField().getText();
+                    MessageModel res = sendMessage(new MessageModel(Message.FIND_BOOKS, new Object[]{arg}));
                     mainJPanel.getSearchPanel().getListView().removeAll();
-                    List<BooksInfoModel> booksInfoModels = new ArrayList<>();
                     for (int i = 0; i < res.getArgs().length; i++) {
-                        booksInfoModels.add((BooksInfoModel) res.getArgs()[i]);
+                        mainJPanel.getSearchPanel().getDefaultListModel().add(0,(BooksInfoModel) res.getArgs()[i]);
                     }
-
                 }
             }
 
@@ -122,6 +116,7 @@ public class EventController {
     public void setConnection(int port, String ip) {
         try {
             socket = new Socket(ip, port);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

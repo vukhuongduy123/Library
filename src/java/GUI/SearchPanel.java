@@ -11,7 +11,7 @@ public class SearchPanel {
     private final JScrollPane scrollPane;
 
     public SearchPanel() {
-        textField = new JTextField();
+        textField = new JTextField(20);
         defaultListModel = new DefaultListModel();
         listView = new JList(defaultListModel);
         scrollPane = new JScrollPane(listView);
@@ -29,7 +29,6 @@ public class SearchPanel {
     public JScrollPane getScrollPane() {
         return scrollPane;
     }
-
 
     public DefaultListModel<BooksInfoModel> getDefaultListModel() {
         return defaultListModel;

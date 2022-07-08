@@ -24,6 +24,7 @@ public class Library {
             MainJFrame mainJFrame = new MainJFrame();
             DateFormat dateFormate = new SimpleDateFormat("yyyy-MM-dd");
             EventController eventController = new EventController(mainJPanel);
+            eventController.setConnection(8080,"localhost");
             eventController.addToListView(new BooksInfoModel(
                     1,"string","string","string","string","string", dateFormate.parse("2019-09-07"), dateFormate.parse("2019-09-07")));
             eventController.initControl();

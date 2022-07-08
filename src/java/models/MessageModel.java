@@ -1,13 +1,14 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class MessageModel implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     private String message;
     private Object[] args = null;
 
-    public MessageModel() {
-    }
+    public MessageModel() {}
 
     public MessageModel(String message, Object[] args) {
         this.message = message;
@@ -30,4 +31,11 @@ public class MessageModel implements Serializable {
         this.args = args;
     }
 
+    @Override
+    public String toString() {
+        return "MessageModel{" +
+                "message='" + message + '\'' +
+                ", args=" + Arrays.toString(args) +
+                '}';
+    }
 }

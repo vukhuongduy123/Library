@@ -33,7 +33,7 @@ public class MainJPanel {
             gbc.gridx = gridxTopPanelButtons.getAndIncrement();
             gbc.fill = GridBagConstraints.NONE;
             gbc.gridy = 0;
-            gbc.insets = new Insets(10,10,10,10);
+            gbc.insets = new Insets(10,0,10,30);
             gbc.anchor = GridBagConstraints.WEST;
             panel.add(element, gbc);
         });
@@ -43,16 +43,20 @@ public class MainJPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0,0,0,0);
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0,0,0,0);
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         panel.add(searchPanel.getTextField(), gbc);
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0,0,0,0);
         gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         panel.add(searchPanel.getScrollPane(), gbc);
 
         icePdf = new IcePdf();
