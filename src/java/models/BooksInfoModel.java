@@ -13,6 +13,7 @@ public class BooksInfoModel implements Serializable {
     private String translator;
     private Date published;
     private Date addedTime;
+    private Integer bookContentId;
 
     public BooksInfoModel() {}
 
@@ -90,6 +91,14 @@ public class BooksInfoModel implements Serializable {
 
     public void setAddedTime(Date addedTime) {
         this.addedTime = addedTime;
+    }
+
+    public Integer getBookContentId() {
+        return bookContentId;
+    }
+
+    public void setBookContentId(Integer bookContentId) {
+        this.bookContentId = bookContentId;
     }
 
     @Override

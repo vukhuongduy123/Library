@@ -9,6 +9,12 @@ public class MainJPanel {
     private final TopButtons topPanelButtons;
     private final SearchPanel searchPanel;
     private final IcePdf icePdf;
+    private final UpdateFileDialog updateFileDialog;
+    private final EditFileDialog editFileDialog;
+
+    public EditFileDialog getEditFileDialog() {
+        return editFileDialog;
+    }
 
     public SearchPanel getSearchPanel() {
         return searchPanel;
@@ -22,7 +28,14 @@ public class MainJPanel {
         return icePdf;
     }
 
-    public MainJPanel() {
+    public UpdateFileDialog getUpdateFileDialog() {
+        return updateFileDialog;
+    }
+
+    public MainJPanel(JFrame jFrame) {
+        updateFileDialog = new UpdateFileDialog(jFrame);
+        editFileDialog = new EditFileDialog(jFrame);
+
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -33,7 +46,7 @@ public class MainJPanel {
             gbc.gridx = gridxTopPanelButtons.getAndIncrement();
             gbc.fill = GridBagConstraints.NONE;
             gbc.gridy = 0;
-            gbc.insets = new Insets(10,0,10,30);
+            gbc.insets = new Insets(10,10,10,30);
             gbc.anchor = GridBagConstraints.WEST;
             panel.add(element, gbc);
         });
@@ -67,7 +80,7 @@ public class MainJPanel {
         gbc.weighty = 1;
         gbc.ipadx = 1;
         gbc.ipady = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 4;
         gbc.gridheight = 2;
         panel.add(icePdf.getPdfViewerComponent(), gbc);
 

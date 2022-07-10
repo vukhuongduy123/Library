@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TopButtons {
     public enum ButtonsName {
-        UPDATE, DELETE, INFO, OPEN, OPEN_LOCAL
+        UPDATE, DELETE, INFO, OPEN, OPEN_LOCAL, EDIT
     }
     private final List<JButton> buttons;
 
@@ -24,6 +24,7 @@ public class TopButtons {
         buttons.add(createButton(ButtonsName.INFO.toString(), false));
         buttons.add(createButton(ButtonsName.OPEN.toString(), false));
         buttons.add(createButton(ButtonsName.OPEN_LOCAL.toString(), true));
+        buttons.add(createButton(ButtonsName.EDIT.toString(), false));
     }
 
     public List<JButton> getButtons() {

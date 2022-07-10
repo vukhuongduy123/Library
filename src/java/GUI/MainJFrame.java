@@ -25,4 +25,8 @@ public class MainJFrame {
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
     }
+
+    public JFrame getjFrame() {
+        return jFrame;
+    }
 }
