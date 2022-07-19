@@ -1,28 +1,25 @@
 import GUI.*;
 import controller.EventController;
+import sercurity.CallbackHandlerImpl;
+import sercurity.LoginModuleImpl;
 
+import javax.security.auth.login.LoginContext;
 import javax.swing.*;
 
 public class Library {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch(Exception ignored){
+            Class.forName("controller.EventController");
+            String ip = JOptionPane.showInputDialog(MainJFrame.getInstance().getFrame(), "Enter your ip", "Local host");
+            EventController.getInstance().setConnection(8080, ip);
 
-        }
-        try {
+            MainJPanel.getInstance().getLoginFormDialog().show(true);
 
-            MainJFrame mainJFrame = new MainJFrame();
-            MainJPanel mainJPanel = new MainJPanel(mainJFrame.getjFrame());
+            EventController.getInstance().initBooksList();
 
-            EventController eventController = new EventController(mainJPanel);
-            eventController.setConnection(8080,"localhost");
-            eventController.initControl();
-            eventController.initBooksList();
-
-            mainJFrame.addComponent(mainJPanel.getPanel());
-
-            mainJFrame.show();
+            MainJFrame.getInstance().addComponent(MainJPanel.getInstance().getPanel());
+            MainJFrame.getInstance().show();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

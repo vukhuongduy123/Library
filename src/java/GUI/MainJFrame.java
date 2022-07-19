@@ -4,29 +4,39 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainJFrame {
-    private final JFrame jFrame;
+    private final JFrame frame;
+    private static final MainJFrame mainJFrame;
 
-    public MainJFrame() {
-        jFrame = new JFrame();
-        jFrame.setLayout(new BorderLayout());
-        jFrame.getRootPane().setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
-                BorderFactory.createLoweredBevelBorder()));
-        jFrame.setTitle("Library");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    static {
+        mainJFrame = new MainJFrame();
     }
 
+    private MainJFrame() {
+        frame = new JFrame();
+        frame.setLayout(new BorderLayout());
+        frame.getRootPane().setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
+                BorderFactory.createLoweredBevelBorder()));
+        frame.setTitle("Library");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+
+
     public void addComponent(Component component) {
-        jFrame.add(component);
+        frame.add(component);
     }
 
     public void show() {
-        jFrame.pack();
-        jFrame.setLocationRelativeTo(null);
-        jFrame.setVisible(true);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    public JFrame getjFrame() {
-        return jFrame;
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public static MainJFrame getInstance() {
+        return mainJFrame;
     }
 }

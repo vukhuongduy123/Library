@@ -11,6 +11,68 @@ public class MainJPanel {
     private final IcePdf icePdf;
     private final UpdateFileDialog updateFileDialog;
     private final EditFileDialog editFileDialog;
+    private final LoginFormDialog loginFormDialog;
+    private static final MainJPanel mainJPanel;
+
+    static {
+        mainJPanel = new MainJPanel();
+    }
+
+    private MainJPanel() {
+        JFrame frame = MainJFrame.getInstance().getFrame();
+        updateFileDialog = new UpdateFileDialog(frame);
+        editFileDialog = new EditFileDialog(frame);
+        loginFormDialog = new LoginFormDialog(frame);
+
+        panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        AtomicInteger gridxTopPanelButtons = new AtomicInteger();
+        topPanelButtons = new TopButtons();
+        topPanelButtons.getButtons().forEach(element -> {
+            gbc.gridx = gridxTopPanelButtons.getAndIncrement();
+            gbc.fill = GridBagConstraints.NONE;
+            gbc.gridy = 0;
+            gbc.insets = new Insets(10, 10, 10, 30);
+            gbc.anchor = GridBagConstraints.WEST;
+            panel.add(element, gbc);
+        });
+
+        searchPanel = new SearchPanel();
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        panel.add(searchPanel.getTextField(), gbc);
+
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        panel.add(searchPanel.getScrollPane(), gbc);
+
+        icePdf = new IcePdf();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.ipadx = 1;
+        gbc.ipady = 1;
+        gbc.gridwidth = 4;
+        gbc.gridheight = 2;
+        panel.add(icePdf.getPdfViewerComponent(), gbc);
+
+    }
 
     public EditFileDialog getEditFileDialog() {
         return editFileDialog;
@@ -32,62 +94,15 @@ public class MainJPanel {
         return updateFileDialog;
     }
 
-    public MainJPanel(JFrame jFrame) {
-        updateFileDialog = new UpdateFileDialog(jFrame);
-        editFileDialog = new EditFileDialog(jFrame);
-
-        panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        AtomicInteger gridxTopPanelButtons = new AtomicInteger();
-        topPanelButtons = new TopButtons();
-        topPanelButtons.getButtons().forEach(element -> {
-            gbc.gridx = gridxTopPanelButtons.getAndIncrement();
-            gbc.fill = GridBagConstraints.NONE;
-            gbc.gridy = 0;
-            gbc.insets = new Insets(10,10,10,30);
-            gbc.anchor = GridBagConstraints.WEST;
-            panel.add(element, gbc);
-        });
-
-        searchPanel = new SearchPanel();
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.weightx = 0;
-        gbc.insets = new Insets(0,0,0,0);
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(0,0,0,0);
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        panel.add(searchPanel.getTextField(), gbc);
-
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weightx = 0;
-        gbc.insets = new Insets(0,0,0,0);
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        panel.add(searchPanel.getScrollPane(), gbc);
-
-        icePdf = new IcePdf();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.ipadx = 1;
-        gbc.ipady = 1;
-        gbc.gridwidth = 4;
-        gbc.gridheight = 2;
-        panel.add(icePdf.getPdfViewerComponent(), gbc);
-
+    public static MainJPanel getInstance() {
+        return mainJPanel;
     }
 
     public JPanel getPanel() {
         return panel;
     }
 
+    public LoginFormDialog getLoginFormDialog() {
+        return loginFormDialog;
+    }
 }
